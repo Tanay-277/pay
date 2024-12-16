@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = process.env.API_URL
+const URL = import.meta.env.VITE_APP_API_URL;
 
 interface TransferPayload {
 	amount: string;
