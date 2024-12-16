@@ -20,7 +20,6 @@ import { UserInterface } from "@/types/types";
 import LogoutBtn from "./LogoutBtn";
 import { useEffect, useRef, useState } from "react";
 import { ProfileForm } from "./ProfileForm";
-import { Separator } from "./ui/separator";
 
 const UserBtn = ({ user }: { user: UserInterface | null }) => {
     const [theme, setTheme] = useState<"dark" | "light">("dark");

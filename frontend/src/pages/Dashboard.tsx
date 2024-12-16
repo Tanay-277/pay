@@ -7,7 +7,7 @@ import AppBar from "@/components/AppBar";
 import Users from "@/components/Users";
 
 const Dashboard = () => {
-  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
+  const [_, setLoggedIn] = useState<boolean | null>(null);
   const [userData, setUserData] = useState<UserInterface | null>(null);
   const [balance, setBalance] = useState<number>(0)
   const navigate = useNavigate();

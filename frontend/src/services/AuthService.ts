@@ -1,9 +1,7 @@
 import axios from "axios";
 import { getUserBalance } from "./UserService";
 
-const URL =
-	`${import.meta.env.VITE_APP_API_URL}/user` ||
-	"http://192.168.0.103:3000/api/v1/user";
+const URL = `${import.meta.env.VITE_APP_API_URL}/user`;
 
 interface SignInPayload {
 	email: string;
