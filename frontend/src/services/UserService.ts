@@ -1,8 +1,10 @@
 import axios from "axios";
 
-const URL =
-	`${import.meta.env.VITE_APP_API_URL}` ||
-	"http://192.168.0.103:3000/api/v1/user";
+const URL = `${
+	process.env.NODE_ENV === "production"
+		? process.env.API_URL
+		: import.meta.env.VITE_APP_API_URL
+}`;
 
 interface TransferPayload {
 	amount: string;
