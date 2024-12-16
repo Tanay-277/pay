@@ -1,10 +1,6 @@
 import axios from "axios";
 
-const URL = `${
-	process.env.NODE_ENV === "production"
-		? process.env.API_URL
-		: import.meta.env.VITE_APP_API_URL
-}`;
+const URL = process.env.API_URL
 
 interface TransferPayload {
 	amount: string;
