@@ -14,6 +14,10 @@ app.use(cors());
 
 app.use("/api/v1", router);
 
+app.get("/",(_,res)=>{
+	res.send("PayV1 Backend")
+})
+
 app.listen(PORT, () => {
 	console.log(`Server is up at ${PORT}`);
 });
