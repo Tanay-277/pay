@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -8,20 +9,24 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { useState } from "react";
+
 import UserAvatar from "./UserAvatar";
-import { User } from "@/types/types";
+
 import { handleTransferMoney } from "@/services/UserService";
 import { Loader2 } from "lucide-react";
+import { useAppSelector } from "@/redux/hooks";
 
-const TransferDialog = ({ user, balance }: { user: User; balance: number }) => {
+const TransferDialog = () => {
+    const user = useAppSelector(state => state.user)
+    const balance = useAppSelector(state => state.account.balance)
+
     const [amount, setAmount] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<string>("");
 
     const handleTransfer = async () => {
-        const to = user._id;
+        const to = user.id;
         const transferAmount = Number.parseInt(amount);
 
         if (transferAmount >= balance) {

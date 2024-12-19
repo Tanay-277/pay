@@ -22,7 +22,6 @@ import { User } from "@/types/types";
 const Users = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [filter, setFilter] = useState<string>("");
-    const balance = 0
 
     useEffect(() => {
         const debounceFetch = setTimeout(() => {
@@ -76,7 +75,7 @@ const Users = () => {
                             </TableCell>
                             <TableCell className="hidden md:table-cell">{user.email}</TableCell>
                             <TableCell className="text-right">
-                                <TransferDialog user={user} balance={balance} />
+                                <TransferDialog />
                             </TableCell>
                         </TableRow>
                     ))}
