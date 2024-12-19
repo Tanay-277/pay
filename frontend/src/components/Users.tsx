@@ -75,7 +75,7 @@ const Users = () => {
                             </TableCell>
                             <TableCell className="hidden md:table-cell">{user.email}</TableCell>
                             <TableCell className="text-right">
-                                <TransferDialog />
+                                <TransferDialog user={user}/>
                             </TableCell>
                         </TableRow>
                     ))}
