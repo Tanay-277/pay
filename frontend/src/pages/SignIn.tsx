@@ -56,8 +56,6 @@ const SignIn = () => {
     }
   };
 
-  console.log("hello", import.meta.env.MODE);
-
   return (
     <div className="min-h-dvh w-full flex items-center justify-center flex-col gap-8 p-4 md:p-8">
       <Card className="w-full max-w-lg">

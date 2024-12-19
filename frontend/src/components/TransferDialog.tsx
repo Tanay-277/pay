@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { UserInterface } from "@/types/types";
+import { User } from "@/types/types";
 
 import UserAvatar from "./UserAvatar";
 
@@ -17,9 +17,9 @@ import { handleTransferMoney } from "@/services/UserService";
 import { setBalance } from '@/redux/features/accountSlice';
 
 import { Loader2 } from "lucide-react";
-import { useAppSelector,useAppDispatch } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 
-const TransferDialog = ({ user }: { user: UserInterface }) => {
+const TransferDialog = ({ user }: { user: User }) => {
     const balance = useAppSelector(state => state.account.balance)
     const dispatch = useAppDispatch()
 
@@ -29,6 +29,7 @@ const TransferDialog = ({ user }: { user: UserInterface }) => {
     const [success, setSuccess] = useState<string>("");
 
     const handleTransfer = async () => {
+
         const to = user._id;
         const transferAmount = Number.parseInt(amount);
 
@@ -40,7 +41,7 @@ const TransferDialog = ({ user }: { user: UserInterface }) => {
         try {
             setLoading(true);
             const response = await handleTransferMoney({ amount, to });
-            console.log(response);
+            // console.log(response);
             setLoading(false);
             if (response.status === 200) {
                 dispatch(setBalance(balance - transferAmount))

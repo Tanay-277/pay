@@ -10,7 +10,6 @@ const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
-  console.log("hello");
 
   useEffect(() => {
     const checkAuth = async () => {
