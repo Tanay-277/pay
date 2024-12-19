@@ -19,9 +19,10 @@ import TransferDialog from "./TransferDialog";
 import UserAvatar from "./UserAvatar";
 import { User } from "@/types/types";
 
-const Users = ({ balance }: { balance: number }) => {
+const Users = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [filter, setFilter] = useState<string>("");
+    const balance = 0
 
     useEffect(() => {
         const debounceFetch = setTimeout(() => {

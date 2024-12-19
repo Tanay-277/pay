@@ -1,0 +1,27 @@
+My First MERN Project
+
+A simple,minimal online payments application 
+
+* 🔗 Link: https://payv1.vercel.app/
+
+- You can create an account and log in to the application. (Some random money will be generated in your account so you can try out the features.) Alternatively, use the following dummy credentials to explore the app.
+
+    - Email: `arthur@gmail.com`
+    - Password: `arthur@123`
+
+    - Email: `tom@gmail.com`
+    - Password: `tom@123`
+
+
+## Features
+
+- Session-Based User Authentication: Secure login and registration for users powered by JWT.(JWT)
+- Money Transfer: Dummy implementation for now, but the UI is fully functional and ready for integration.
+
+
+## Tech Stack
+
+- Frontend: ReactJS,TypeScript,React Hook Form,React Router
+- UI: TailwindCSS, shadcn UI
+- Backend: NodeJS,ExpressJS,JWT,Zod
+- Database: MongoDB

@@ -1,4 +1,3 @@
-"use client";
 import {
     Menubar,
     MenubarContent,
@@ -16,12 +15,14 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Switch } from "@/components/ui/switch";
-import { UserInterface } from "@/types/types";
 import LogoutBtn from "./LogoutBtn";
 import { useEffect, useRef, useState } from "react";
 import { ProfileForm } from "./ProfileForm";
+import { useAppSelector } from "@/redux/hooks";
 
-const UserBtn = ({ user }: { user: UserInterface | null }) => {
+const UserBtn = () => {
+
+    const user = useAppSelector(state => state.user)
     const [theme, setTheme] = useState<"dark" | "light">("dark");
 
     const handleThemeChange = () => setTheme(prevTheme => (prevTheme === "light" ? "dark" : "light"));
@@ -32,7 +33,7 @@ const UserBtn = ({ user }: { user: UserInterface | null }) => {
 
     const dialogRef = useRef<null | HTMLButtonElement>(null)
 
-    const handleDialog = () => {    
+    const handleDialog = () => {
         dialogRef.current?.click();
     }
 
@@ -65,7 +66,7 @@ const UserBtn = ({ user }: { user: UserInterface | null }) => {
                             This is how others will see you on the site.
                         </DialogDescription>
                     </DialogHeader>
-                    <ProfileForm user={user}/>
+                    <ProfileForm />
                 </DialogContent>
             </Dialog>
         </>

@@ -1,18 +1,12 @@
-import { Routes, Route } from "react-router";
-import { lazy, Suspense, JSX } from "react";
+import { Suspense } from 'react';
+import { Routes, Route } from 'react-router';
+import ProtectedRoute from './pages/ProtectedRoute';
 
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const SignUp = lazy(() => import("./pages/SignUp"));
-const SignIn = lazy(() => import("./pages/SignIn"));
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import Dashboard from './pages/Dashboard';
 
-interface RouteConfig {
-  path: string;
-  name: string;
-  element: JSX.Element;
-  fallback: JSX.Element;
-}
-
-const routes: RouteConfig[] = [
+const routes = [
   {
     path: "/",
     name: "dashboard",
@@ -42,7 +36,11 @@ const App = () => {
           path={route.path}
           element={
             <Suspense fallback={route.fallback}>
-              {route.element}
+              {route.name === 'dashboard' ? (
+                <ProtectedRoute element={route.element} />
+              ) : (
+                route.element
+              )}
             </Suspense>
           }
         />

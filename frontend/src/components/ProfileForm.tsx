@@ -1,17 +1,19 @@
-"use client";
-
-import { UserInterface } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useForm } from "react-hook-form";
+
 import { Button } from "./ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import { useState } from "react";
+
 import { handleUpdate } from "@/services/AuthService";
-import { Label } from "./ui/label";
+import { useAppSelector,useAppDispatch } from "@/redux/hooks";
+import {setName} from "@/redux/features/userSlice"
 
 const profileFormSchema = z.object({
     name: z.string().min(1, "Name is required").optional(),
@@ -20,8 +22,14 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-export function ProfileForm({ user }: { user: UserInterface | null }) {
+export function ProfileForm() {
+    const user = useAppSelector(state => state.user)
+    const balance = useAppSelector(state => state.account.balance)
+
+    const dispatch = useAppDispatch();
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
         defaultValues: { name: user?.name, password: "" },
@@ -31,18 +39,23 @@ export function ProfileForm({ user }: { user: UserInterface | null }) {
     const onSubmit = async (data: ProfileFormValues) => {
         try {
             setError(null);
+            setLoading(true);
             if (data.password && data.password.length < 6) {
                 setError("Password should be at least 6 characters");
+                setLoading(false);
                 return;
             }
             if (data.name && data.name !== user?.name && data.name.length < 1) {
                 setError("Name should be at least one character");
+                setLoading(false);
                 return;
             }
 
             const updateData: Partial<ProfileFormValues> = {};
+
             if (data.name && data.name !== user?.name) {
                 updateData.name = data.name;
+                dispatch(setName(updateData.name));
             }
             if (data.password && data.password.length >= 6) {
                 updateData.password = data.password;
@@ -56,6 +69,8 @@ export function ProfileForm({ user }: { user: UserInterface | null }) {
         } catch (err) {
             setError("An error occurred while updating the profile. Please try again.");
             console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -74,7 +89,7 @@ export function ProfileForm({ user }: { user: UserInterface | null }) {
                     <Label>Email</Label>
                     <Input value={user?.email} className="cursor-default" readOnly />
                     <Label>Balance</Label>
-                    <Input value={564} className="cursor-default" readOnly />
+                    <Input value={balance} className="cursor-default" readOnly />
                 </div>
             </TabsContent>
             <TabsContent value="updateAccount">
@@ -119,7 +134,9 @@ export function ProfileForm({ user }: { user: UserInterface | null }) {
                             </AccordionItem>
                         </Accordion>
                         {error && <div className="text-red-500">{error}</div>}
-                        <Button type="submit">Update Profile</Button>
+                        <Button type="submit" disabled={loading}>
+                            {loading ? "Updating..." : "Update Profile"}
+                        </Button>
                     </form>
                 </Form>
             </TabsContent>
